@@ -15,7 +15,6 @@ function commonHash (hashes) {
     });
     return commondir(paths).split('/').join('');
 }
-var extents = require('./lib/extents');
 
 function containment (hash, polygon) {
     var decoded = geohash.decode(hash);
