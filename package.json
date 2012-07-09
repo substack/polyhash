@@ -1,7 +1,7 @@
 {
     "name" : "polygon-hash",
     "version" : "0.0.0",
-    "description" : "generate an array of geohashes that circumscribe a polygon",
+    "description" : "generate an array of geohashes that completely contain a polygon",
     "main" : "index.js",
     "bin" : {},
     "directories" : {

@@ -2,7 +2,7 @@
 
 Generate an array of
 [geohashes](http://en.wikipedia.org/wiki/Geohash)
-that circumscribe a polygon.
+that completely contains a polygon.
 
 # example
 
@@ -32,7 +32,7 @@ var polyhash = require('polyhash')
 ## polyhash(polygon, level)
 
 Return an array of [geohashes](http://en.wikipedia.org/wiki/Geohash)
-that circumscribe the array of points described by `polygon`.
+that completely contains the array of points described by `polygon`.
 
 Points are of the form `[ lat, lon ]`.
 
@@ -41,7 +41,7 @@ string length of the geohash entries.
 
 At the maximum geohash resolution `level`, hashes that are partially intersected
 will be counted. All other levels recurse down to sublevels until a completely
-circumscribed hash is found.
+contained hash is found.
 
 # install
 
