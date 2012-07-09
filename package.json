@@ -1,7 +1,42 @@
 {
     "name" : "polygon-hash",
     "version" : "0.0.0",
+    "description" : "generate an array of geohashes that circumscribe a polygon",
+    "main" : "index.js",
+    "bin" : {},
+    "directories" : {
+        "example" : "example",
+        "test" : "test"
+    },
     "dependencies" : {
+        "point-in-polygon" : "~0.0.0",
+        "commondir" : "~0.0.1",
         "geohash" : "git://github.com/maxogden/geohash-js.git"
-    }
+    },
+    "devDependencies" : {
+        "tap" : "~0.2.5"
+    },
+    "scripts" : {
+        "test" : "tap test/*.js"
+    },
+    "repository" : {
+        "type" : "git",
+        "url" : "git://github.com/substack/polygon-hash.git"
+    },
+    "homepage" : "https://github.com/substack/polygon-hash",
+    "keywords" : [
+        "geohash",
+        "polygon",
+        "shapefile",
+        "point",
+        "lat",
+        "lon"
+    ],
+    "author" : {
+        "name" : "James Halliday",
+        "email" : "mail@substack.net",
+        "url" : "http://substack.net"
+    },
+    "license" : "MIT",
+    "engine" : { "node" : ">=0.6" }
 }
