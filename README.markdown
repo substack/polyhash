@@ -4,6 +4,8 @@ Generate an array of
 [geohashes](http://en.wikipedia.org/wiki/Geohash)
 that completely contains a polygon.
 
+[![build status](https://secure.travis-ci.org/substack/polyhash.png)](http://travis-ci.org/substack/polyhash)
+
 # example
 
 ``` js
