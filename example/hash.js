@@ -4,5 +4,5 @@ var polygon = [
     [ 37.95, -122.90 ],
     [ 38.21, -122.62 ]
 ];
-var hashes = polyhash(polygon, 3);
+var hashes = polyhash(polygon, 4);
 console.dir(hashes);

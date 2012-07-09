@@ -17,7 +17,7 @@ function commonHash (hashes) {
 }
 var extents = require('./lib/extents');
 
-function completelyContained (hash, polygon) {
+function containment (hash, polygon) {
     var decoded = geohash.decode(hash);
     var hext = {
         w : decoded.longitude[0],
@@ -31,9 +31,11 @@ function completelyContained (hash, polygon) {
         [ hext.n, hext.e ],
         [ hext.n, hext.w ],
     ];
-    return hpoly.every(function (pt) {
+    
+    var c = hpoly.filter(function (pt) {
         return inside(pt, polygon);
-    });
+    }).length;
+    return { 0 : 'none', 4 : 'complete' }[c] || 'partial';
 }
 
 module.exports = function (points, level) {
@@ -42,13 +44,14 @@ module.exports = function (points, level) {
     }));
     if (level === undefined) level == 22;
     
-    return (function divide (hash) {
-        if (hash.length >= level) return [ hash ];
-        var contained = completelyContained(hash, points);
-        if (contained) return [ hash ];
+    var res = (function divide (hash) {
+        var c = containment(hash, points);
+        if (hash.length >= level) return c === 'none' ? [] : [ hash ];
+        if (c === 'complete') return [ hash ];
         
         return geohash.subs(hash).reduce(function (acc, sh) {
             return acc.concat(divide(sh));
         }, []);
     })(ch);
+    return res.length ? res : [ ch ];
 };
