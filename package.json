@@ -1,0 +1,7 @@
+{
+    "name" : "polygon-hash",
+    "version" : "0.0.0",
+    "dependencies" : {
+        "geohash" : "git://github.com/maxogden/geohash-js.git"
+    }
+}
