@@ -3,9 +3,11 @@ var geohash = (function () {
     var gh = require('geohash');
     return {
         encode : gh.encodeGeoHash.bind(gh),
-        decode : gh.decodeGeoHash.bind(gh)
+        decode : gh.decodeGeoHash.bind(gh),
+        subs : gh.subGeohashes.bind(gh)
     };
 })();
+
 var commondir = require('commondir');
 function commonHash (hashes) {
     var paths = hashes.map(function (s) {
@@ -38,5 +40,15 @@ module.exports = function (points, level) {
     var ch = commonHash(points.map(function (p) {
         return geohash.encode(p[0], p[1]);
     }));
-    return completelyContained(ch, points);
+    if (level === undefined) level == 22;
+    
+    return (function divide (hash) {
+        if (hash.length >= level) return [ hash ];
+        var contained = completelyContained(hash, points);
+        if (contained) return [ hash ];
+        
+        return geohash.subs(hash).reduce(function (acc, sh) {
+            return acc.concat(divide(sh));
+        }, []);
+    })(ch);
 };
