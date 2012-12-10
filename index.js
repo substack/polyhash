@@ -2,9 +2,9 @@ var inside = require('point-in-polygon');
 var geohash = (function () {
     var gh = require('geohash');
     return {
-        encode : gh.encodeGeoHash.bind(gh),
-        decode : gh.decodeGeoHash.bind(gh),
-        subs : gh.subGeohashes.bind(gh)
+        encode : gh.encode.bind(gh),
+        decode : gh.decode.bind(gh),
+        subs : gh.subs.bind(gh)
     };
 })();
 
@@ -30,7 +30,7 @@ function containment (hash, polygon) {
         [ hext.n, hext.e ],
         [ hext.n, hext.w ],
     ];
-    
+
     var c = hpoly.filter(function (pt) {
         return inside(pt, polygon);
     }).length;
@@ -42,12 +42,12 @@ module.exports = function (points, level) {
         return geohash.encode(p[0], p[1]);
     }));
     if (level === undefined) level == 22;
-    
+
     var res = (function divide (hash) {
         var c = containment(hash, points);
         if (hash.length >= level) return c === 'none' ? [] : [ hash ];
         if (c === 'complete') return [ hash ];
-        
+
         return geohash.subs(hash).reduce(function (acc, sh) {
             return acc.concat(divide(sh));
         }, []);
